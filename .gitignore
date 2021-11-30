@@ -324,3 +324,5 @@ roaring.h
 roaring.hh
 
 #############END VISUAL STUDIO##############
+amalgamation_demo
+.DS_Store

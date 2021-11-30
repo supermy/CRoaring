@@ -20,17 +20,18 @@ A C++ header for 64-bit Roaring Bitmaps, implemented by way of a map of many
 #include "roaring.hh"
 using roaring::Roaring;
 
-namespace roaring {
+extern "C" namespace roaring {
 
 class Roaring64MapSetBitForwardIterator;
 class Roaring64MapSetBitBiDirectionalIterator;
 
-class Roaring64Map {
+ class Roaring64Map {
     typedef api::roaring_bitmap_t roaring_bitmap_t;
 
 public:
+
     /**
-     * Create an empty bitmap
+     * Create an empty bitmap EM_PORT_API(void) 
      */
     Roaring64Map() = default;
 
@@ -1078,6 +1079,7 @@ public:
           i(r.i)
     {}
 
+
     Roaring64MapSetBitForwardIterator(const Roaring64Map &parent,
                                       bool exhausted = false)
         : p(parent.roarings), map_end(parent.roarings.cend()) {
@@ -1102,7 +1104,10 @@ protected:
 };
 
 class Roaring64MapSetBitBiDirectionalIterator final :public Roaring64MapSetBitForwardIterator {
+
 public:
+
+
     explicit Roaring64MapSetBitBiDirectionalIterator(const Roaring64Map &parent,
                                                      bool exhausted = false)
         : Roaring64MapSetBitForwardIterator(parent, exhausted), map_begin(parent.roarings.cbegin())
@@ -1145,7 +1150,7 @@ public:
         }
         return orig;
     }
-
+    
 protected:
     std::map<uint32_t, Roaring>::const_iterator map_begin;
 };
@@ -1159,5 +1164,6 @@ inline Roaring64MapSetBitForwardIterator Roaring64Map::end() const {
 }
 
 }  // namespace roaring
+    
 
 #endif /* INCLUDE_ROARING_64_MAP_HH_ */
